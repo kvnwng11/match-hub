@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,31 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.gameday {
+  position: relative;
+  margin: auto;
+  margin-top: 60px;
+  width: 80%;
+}
+
+.team {
+  font-size: 12px;
+}
+
+.date {
+  padding-bottom: 2%;
+}
+
+.logo {
+  width: 20%;
+  height: auto;
+  margin-top: 5%;
+  margin-left: 10%;
+}
+
+.title {
+  display: inline-block;
+
 }
