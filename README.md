@@ -1,3 +1,13 @@
+## Setup
+
+Run setup script:
+
+### `npm install`
+
+Then initialize virtual environment
+
+### `source env/bin/activate`
+
 ## Install Dependencies
 
 ### `npm install`
