@@ -2,7 +2,7 @@
 
 Run setup script:
 
-### `npm install`
+### `./setup.sh`
 
 Then initialize virtual environment
 
@@ -16,7 +16,7 @@ Then initialize virtual environment
 
 In your terminal, run:
 
-### `uvicorn main:app --reload --port 8000`
+### `uvicorn backend.main:app --reload --port 8000`
 
 In another terminal, run:
 
