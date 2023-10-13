@@ -11,6 +11,7 @@ app = FastAPI()
 
 def fixtures_list():
     """ Returns a dictionary of any upcoming games """
+    # TODO: Is there a better way?
     link = f"https://onefootball.com/en/competition/premier-league-9/fixtures"
     response = requests.get(link)
     if response.status_code != 200:
@@ -19,15 +20,17 @@ def fixtures_list():
     fix = page.find_all(
         "article", class_="SimpleMatchCard_simpleMatchCard__yTuUP")
 
+    # Parse results. Results are in the form "<home> <away> <time>"
     id = 0
     fixtures = []
     for elt in fix:
         # Split String
         text = elt.text.strip()
-        print(text)
+        #print(text)
         splitted = text.split()
-        print("split: ", splitted)
+        #print("split: ", splitted)
 
+        # Split each match, and get team names
         formatted = []
         foundDouble = False
         for word in splitted:
@@ -67,6 +70,8 @@ def fixtures_list():
             if done:
                 break
 
+        # Special Cases.
+        # TODO: Make this more elegant
         joined = []
         i = 0
         while i < len(formatted):
@@ -88,6 +93,7 @@ def fixtures_list():
                 joined.append(word)
             i += 1
 
+        # Add to list of games
         if len(joined) == 4:
             date = joined[2][3:5] + '/' + joined[2][0:2] + '/' + joined[2][6:]
             match = {
