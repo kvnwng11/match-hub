@@ -24,7 +24,8 @@ code {
 }
 
 .team {
-  font-size: 12px;
+  font-size: 20px;
+  display: inline;
 }
 
 .date {
@@ -40,5 +41,10 @@ code {
 
 .title {
   display: inline-block;
+}
 
+.teamlogo {
+  width: 20px;
+  height: 20px;
+  display: inline;
 }

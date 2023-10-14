@@ -94,12 +94,16 @@ def fixtures_list():
             i += 1
 
         # Add to list of games
+        homelogo = joined[0].replace(" ", "").replace("&", "").lower()
+        awaylogo = joined[1].replace(" ", "").replace("&", "").lower()
         if len(joined) == 4:
             date = joined[2][3:5] + '/' + joined[2][0:2] + '/' + joined[2][6:]
             match = {
                 'id': id,
                 'home': joined[0],
                 'away': joined[1],
+                'homelogo': homelogo,
+                'awaylogo': awaylogo,
                 'date': date,
                 'time': joined[3],
                 'finished': False
