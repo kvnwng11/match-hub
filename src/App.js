@@ -1,14 +1,50 @@
 import React, { useState, useEffect } from "react";
-import './App.css';
-import GameDay from "./GameDay";
+import {
+  Card,
+  Typography,
+  List,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+} from "@material-tailwind/react";
 import logo from './logo.png'
+import GameDay from "./GameDay";
+import './index.css';
+import './App.css';
+
+
+// A sidebar to create a watchlist
+function Sidebar({ handleFilter }) {
+
+  const [selectedGame, setSelectedGame] = useState({});
+
+  return (
+    <>
+      <img src={logo} className="logo" alt="logo" />
+      <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 ">
+        <div className="mb-2 font-bold text-xl text-gray-900">
+          <Typography variant="h2" color="blue-gray">
+            Filter by club
+          </Typography>
+        </div>
+        <List>
+          <ListItem onClick={(e) => handleFilter(e, "AFC Bournemouth")}>
+            AFC Bournemouth
+          </ListItem>
+        </List>
+      </Card>
+    </>
+  );
+}
 
 
 function App() {
 
-  //const [url, setURL] = useState();
+  const [selectedTeams, setSelectedTeams] = useState([]);
   const [games, setGames] = useState({});
 
+  // Fetches all upcoming games. This runs when the application is started.
   useEffect(() => {
     // Declare a boolean flag that we can use to cancel the API request.
     let ignoreStaleRequest = false;
@@ -24,12 +60,6 @@ function App() {
         // If ignoreStaleRequest was set to true, we want to ignore the results of the
         // the request. Otherwise, update the state to trigger a new render.
         if (!ignoreStaleRequest) {
-          /*
-          const resultsLen = data.results;
-          setNumPosts(resultsLen.length);
-          setPosts(data.results);
-          setNextURL(data.next);
-          */
           setGames(data);
         }
       })
@@ -43,18 +73,46 @@ function App() {
   //console.log(games);
 
   var counter = 0;
-  const displayGames = Object.entries(games).map(([date, gameDay]) =>
+  let displayGames = Object.entries(games).map(([date, gameDay]) =>
     <GameDay date={String(date)} games={gameDay} key={counter++} />
   );
 
   //console.log(displayGames);
 
-  return (
-    <div>
-      <img src={logo} className="logo" alt="logo" />
-      {displayGames}
-    </div>
-  );
+  // What to do if User wants to see one team
+  function handleFilter(event, team) {
+    event.preventDefault();
+
+    // Call Rest API
+    const teamName = team.replace(/\s/g, "").toLowerCase();
+    const apiUrl = `/api/fixtures/${teamName}`
+    fetch(apiUrl, { credentials: "same-origin" })
+      .then((response) => {
+        if (!response.ok) throw Error(response.statusText);
+        return response.json();
+      })
+      .then((data) => {
+        // Update state
+      })
+      .catch((error) => console.log(error));
+  }
+
+  if (false) {
+
+  }
+  else {
+    return (
+      <div>
+        <div className="sidebar">
+          <Sidebar handleFilter={handleFilter}></Sidebar>
+        </div>
+        <div className="games">
+          {displayGames}
+        </div>
+
+      </div>
+    );
+  }
 }
 
 export default App;

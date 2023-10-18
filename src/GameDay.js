@@ -10,8 +10,8 @@ export default function GameDay({ date, games }) {
 
     return (
         <div className="gameday">
-            <p className="text-3xl font-black text-gray-900 date">{moment(date).format('MMMM DD, YYYY')}</p>
-            <div className="grid grid-cols-3 gap-4 content-evenly">
+            <p className="text-3xl font-black text-gray-900 date">{moment(date).format('ddd, MMMM DD, YYYY')}</p>
+            <div className="grid grid-cols-2 gap-4 content-evenly">
                 {displayGames}
             </div>
         </div>

@@ -9,7 +9,7 @@ import re
 app = FastAPI()
 
 
-def fixtures_list():
+def fixtures_list(team: str):
     """ Returns a dictionary of any upcoming games """
     # TODO: Is there a better way?
     link = f"https://onefootball.com/en/competition/premier-league-9/fixtures"
@@ -97,19 +97,22 @@ def fixtures_list():
         homelogo = joined[0].replace(" ", "").replace("&", "").lower()
         awaylogo = joined[1].replace(" ", "").replace("&", "").lower()
         if len(joined) == 4:
-            date = joined[2][3:5] + '/' + joined[2][0:2] + '/' + joined[2][6:]
-            match = {
-                'id': id,
-                'home': joined[0],
-                'away': joined[1],
-                'homelogo': homelogo,
-                'awaylogo': awaylogo,
-                'date': date,
-                'time': joined[3],
-                'finished': False
-            }
-            fixtures.append(match)
-            id += 1
+
+            # Check if we need to filter
+            if len(team) == 0 or (len(team) > 0 and (team == homelogo or team == awaylogo)):
+                date = joined[2][3:5] + '/' + joined[2][0:2] + '/' + joined[2][6:]
+                match = {
+                    'id': id,
+                    'home': joined[0],
+                    'away': joined[1],
+                    'homelogo': homelogo,
+                    'awaylogo': awaylogo,
+                    'date': date,
+                    'time': joined[3],
+                    'finished': False
+                }
+                fixtures.append(match)
+                id += 1
 
     return fixtures
 
@@ -132,6 +135,15 @@ def organize(fixtures):
 @app.get("/api/fixtures")
 async def root():
     # Get fixture data
-    fixtures = organize(fixtures_list())
+    fixtures = organize(fixtures_list(""))
+    
+    return fixtures
+
+@app.get("/api/fixtures/{team}/")
+async def filter_teams(team):
+    # Get fixture data
+    fixtures = organize(fixtures_list(team))
+
+    print(fixtures)
     
     return fixtures
