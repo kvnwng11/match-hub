@@ -143,7 +143,5 @@ async def root():
 async def filter_teams(team):
     # Get fixture data
     fixtures = organize(fixtures_list(team))
-
-    print(fixtures)
     
     return fixtures

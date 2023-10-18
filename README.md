@@ -1,24 +1,15 @@
+# MatchHub
+
+An application to keep track of upcoming Premier League soccer games.
+
 ## Setup
 
-Run setup script:
+Virtual Environment:
 
-### `./setup.sh`
+1. `./setup.sh`
+2. `source env/bin/activate`
 
-Then initialize virtual environment
+Application:
 
-### `source env/bin/activate`
-
-## Install Dependencies
-
-### `npm install`
-
-## Initialize
-
-In your terminal, run:
-
-### `uvicorn backend.main:app --reload --port 8000`
-
-In another terminal, run:
-
-### `npm run start`
-
+1. Backend: `uvicorn backend.main:app --reload --port 8000`
+2. Frontend: `npm run start`

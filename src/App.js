@@ -16,9 +16,6 @@ import './App.css';
 
 // A sidebar to create a watchlist
 function Sidebar({ handleFilter }) {
-
-  const [selectedGame, setSelectedGame] = useState({});
-
   return (
     <>
       <img src={logo} className="logo" alt="logo" />
@@ -41,7 +38,6 @@ function Sidebar({ handleFilter }) {
 
 function App() {
 
-  const [selectedTeams, setSelectedTeams] = useState([]);
   const [games, setGames] = useState({});
 
   // Fetches all upcoming games. This runs when the application is started.
@@ -70,14 +66,10 @@ function App() {
     };
   }, []);
 
-  //console.log(games);
-
   var counter = 0;
   let displayGames = Object.entries(games).map(([date, gameDay]) =>
     <GameDay date={String(date)} games={gameDay} key={counter++} />
   );
-
-  //console.log(displayGames);
 
   // What to do if User wants to see one team
   function handleFilter(event, team) {
@@ -93,6 +85,7 @@ function App() {
       })
       .then((data) => {
         // Update state
+        setGames(data);
       })
       .catch((error) => console.log(error));
   }
