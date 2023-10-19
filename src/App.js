@@ -29,6 +29,63 @@ function Sidebar({ handleFilter }) {
           <ListItem onClick={(e) => handleFilter(e, "AFC Bournemouth")}>
             AFC Bournemouth
           </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Arsenal")}>
+            Arsenal
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Aston Villa")}>
+            Aston Villa
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Brentford")}>
+            Brentford
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Brighton & Hove Albion")}>
+            Brighton & Hove Albion
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Burnley")}>
+            Burnley
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Chelsea")}>
+            Chelsea
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Crystal Palace")}>
+            Crystal Palace
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Everton")}>
+            Everton
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Fulham")}>
+            Fulham
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Liverpool")}>
+            Liverpool
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Luton Town")}>
+            Luton Town
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Manchester City")}>
+            Manchester City
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Manchester United")}>
+            Manchester United
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Newcastle United")}>
+            Newcastle United
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Nottingham Forest")}>
+            Nottingham Forest
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Sheffield United")}>
+            Sheffield United
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Tottenham Hotspur")}>
+            Tottenham Hotspur
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "West Ham United")}>
+            West Ham United
+          </ListItem>
+          <ListItem onClick={(e) => handleFilter(e, "Wolverhampton Wanderers")}>
+            Wolverhampton Wanderers
+          </ListItem>
         </List>
       </Card>
     </>
@@ -38,7 +95,8 @@ function Sidebar({ handleFilter }) {
 
 function App() {
 
-  const [games, setGames] = useState({});
+  const [gameData, setGameData] = useState({});
+  const [displayedGames, setDisplayedGames] = useState();
 
   // Fetches all upcoming games. This runs when the application is started.
   useEffect(() => {
@@ -56,7 +114,7 @@ function App() {
         // If ignoreStaleRequest was set to true, we want to ignore the results of the
         // the request. Otherwise, update the state to trigger a new render.
         if (!ignoreStaleRequest) {
-          setGames(data);
+          setGameData(data);
         }
       })
       .catch((error) => console.log("Error: ", error));
@@ -67,11 +125,12 @@ function App() {
   }, []);
 
   var counter = 0;
-  let displayGames = Object.entries(games).map(([date, gameDay]) =>
+  let displayGames = Object.entries(gameData).map(([date, gameDay]) =>
     <GameDay date={String(date)} games={gameDay} key={counter++} />
   );
 
   // What to do if User wants to see one team
+  // TODO: Fix
   function handleFilter(event, team) {
     event.preventDefault();
 
@@ -85,27 +144,28 @@ function App() {
       })
       .then((data) => {
         // Update state
-        setGames(data);
+        setGameData(data);
+        var counter = 0;
+        displayGames = Object.entries(gameData).map(([date, gameDay]) =>
+          <GameDay date={String(date)} games={gameDay} key={counter++} />
+        );
+
       })
       .catch((error) => console.log(error));
   }
 
-  if (false) {
 
-  }
-  else {
-    return (
-      <div>
-        <div className="sidebar">
-          <Sidebar handleFilter={handleFilter}></Sidebar>
-        </div>
-        <div className="games">
-          {displayGames}
-        </div>
-
+  return (
+    <div>
+      <div className="sidebar">
+        <Sidebar handleFilter={handleFilter}></Sidebar>
       </div>
-    );
-  }
+      <div className="games">
+        {displayGames}
+      </div>
+
+    </div>
+  );
 }
 
 export default App;

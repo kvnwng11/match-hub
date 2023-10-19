@@ -39,7 +39,7 @@ CREATE TABLE users (
     UNIQUE (username)
 );
 
--- Represents a teams the user is watching
+-- Represents a team the user is watching
 CREATE TABLE watching (
     username VARCHAR(64) NOT NULL,
     team VARCHAR(64) NOT NULL,
