@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   Card,
   Typography,
   List,
-  ListItem,
-  ListItemPrefix,
-  ListItemSuffix,
-  Chip,
+  ListItem
 } from "@material-tailwind/react";
 import logo from './logo.png'
 import GameDay from "./GameDay";
@@ -104,9 +102,8 @@ function App() {
     let ignoreStaleRequest = false;
 
     // Call REST API to get the post's information
-    fetch("/api/fixtures", { credentials: "same-origin" })
+    fetch("/api/fixtures/", { credentials: "same-origin" })
       .then((response) => {
-        console.log(response);
         if (!response.ok) throw Error(response.statusText);
         return response.json();
       })
@@ -132,11 +129,11 @@ function App() {
   // What to do if User wants to see one team
   // TODO: Fix
   function handleFilter(event, team) {
-    event.preventDefault();
+    //event.preventDefault();
 
     // Call Rest API
     const teamName = team.replace(/\s/g, "").toLowerCase();
-    const apiUrl = `/api/fixtures/${teamName}`
+    const apiUrl = `/api/fixtures/${teamName}/`
     fetch(apiUrl, { credentials: "same-origin" })
       .then((response) => {
         if (!response.ok) throw Error(response.statusText);
@@ -145,13 +142,9 @@ function App() {
       .then((data) => {
         // Update state
         setGameData(data);
-        var counter = 0;
-        displayGames = Object.entries(gameData).map(([date, gameDay]) =>
-          <GameDay date={String(date)} games={gameDay} key={counter++} />
-        );
-
+        console.log(data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log("Error: ", error));
   }
 
 

@@ -3,3 +3,5 @@ fastapi
 lxml
 requests
 uvicorn[standard]
+psycopg2
+datetime

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import './index.css';
 
-export default function Game({ home, away, homelogo, awaylogo, time, finished }) {
+export default function Game({ home, away, homelogo, awaylogo, time }) {
 
     function importAll(r) {
         let images = {};

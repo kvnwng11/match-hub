@@ -1,4 +1,4 @@
-DROP TABLE teams, games, results, users, watching;
+DROP TABLE IF EXISTS teams, games, results, users, watching;
 
 
 -- Represents a Premier League teams

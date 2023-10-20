@@ -5,7 +5,7 @@ import Game from "./Game";
 export default function GameDay({ date, games }) {
     var counter = 1;
     const displayGames = Object.values((games)).map((gameDay) =>
-        <Game home={gameDay.home} away={gameDay.away} homelogo={gameDay.homelogo} awaylogo={gameDay.awaylogo} time={gameDay.time} finished={gameDay.finished} key={gameDay.id} />
+        <Game home={gameDay.home} away={gameDay.away} homelogo={gameDay.homelogo} awaylogo={gameDay.awaylogo} time={gameDay.time} key={gameDay.id} />
     );
 
     return (
