@@ -142,6 +142,6 @@ async def root():
 @app.get("/api/fixtures/{team}/")
 async def filter_teams(team):
     # Get fixture data
-    fixtures = organize(fixtures_list(team))
+    fixtures = organize(fixtures_list(str(team)))
     
     return fixtures
