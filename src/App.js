@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import {
   Card,
   Typography,
   List,
-  ListItem
+  ListItem,
 } from "@material-tailwind/react";
 import logo from './logo.png'
 import GameDay from "./GameDay";
@@ -24,6 +23,9 @@ function Sidebar({ handleFilter }) {
           </Typography>
         </div>
         <List>
+          <ListItem onClick={(e) => handleFilter(e, "")}>
+            All
+          </ListItem>
           <ListItem onClick={(e) => handleFilter(e, "AFC Bournemouth")}>
             AFC Bournemouth
           </ListItem>
@@ -142,7 +144,6 @@ function App() {
       .then((data) => {
         // Update state
         setGameData(data);
-        console.log(data);
       })
       .catch((error) => console.log("Error: ", error));
   }
@@ -156,7 +157,6 @@ function App() {
       <div className="games">
         {displayGames}
       </div>
-
     </div>
   );
 }

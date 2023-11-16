@@ -25,7 +25,9 @@ code {
 
 .team {
   font-size: 20px;
-  display: inline;
+  display: block;
+  text-align: left;
+  padding-left: 2%;
 }
 
 .date {
@@ -47,7 +49,7 @@ code {
 .teamlogo {
   width: 20px;
   height: 20px;
-  display: inline;
+  display: inline-block;
 }
 
 .sidebar {
@@ -62,4 +64,36 @@ code {
   padding-right: 30%;
   position: relative;
   width: 70%;
+}
+
+.time {
+  position: relative;
+  float: right;
+  bottom: 20px;
+}
+
+.modal {
+  background-color: transparent;
+}
+
+.close-button {
+  position: absolute;
+  top: 1%;
+  right: 2%;
+}
+
+
+.popup {
+  top: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-align: center;
+}
+
+.bar {
+  z-index: -1;
 }
