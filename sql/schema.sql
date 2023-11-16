@@ -1,13 +1,13 @@
 DROP TABLE IF EXISTS teams, games, results, users, watching;
 
 
--- Represents a Premier League teams
+-- Represents a Premier League team
 CREATE TABLE teams (
     name VARCHAR(64) PRIMARY KEY,
     filename VARCHAR(64) NOT NULL
 );
 
--- Represents a game played between two teamss
+-- Represents a game played between two teams
 CREATE TABLE games (
     gameid SERIAL PRIMARY KEY,
     home VARCHAR(64) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE users (
     UNIQUE (username)
 );
 
--- Represents a team the user is watching
+-- Represents a team on the user's watchlist
 CREATE TABLE watching (
     username VARCHAR(64) NOT NULL,
     team VARCHAR(64) NOT NULL,

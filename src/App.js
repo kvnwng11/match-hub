@@ -131,7 +131,7 @@ function App() {
   // What to do if User wants to see one team
   // TODO: Fix
   function handleFilter(event, team) {
-    //event.preventDefault();
+    event.preventDefault();
 
     // Call Rest API
     const teamName = team.replace(/\s/g, "").toLowerCase();

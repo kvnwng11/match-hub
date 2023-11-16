@@ -57,6 +57,7 @@ code {
   float: left;
   position: fixed;
   width: 20%;
+  flex-direction: column;
 }
 
 .games {
