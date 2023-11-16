@@ -13,3 +13,8 @@ Application:
 
 1. Backend: `uvicorn backend.main:app --reload --port 8000`
 2. Frontend: `npm run start`
+
+
+## TODO
+
+1. Adding pop-up statistics has turned the sidebar sideways

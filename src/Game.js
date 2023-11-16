@@ -64,7 +64,7 @@ export default function Game({ home, away, homelogo, awaylogo, time }) {
     // To show head-to-head statistics
     var counter = 0;
     const displayStats = Object.entries((stats)).map(([key, value]) =>
-        <p>{key + "."} {home + ": " + value[home]} {away + ": " + value[away]}</p>
+        <p key={counter++}>{key + "."} {home + ": " + value[home]} {away + ": " + value[away]}</p>
         //<Statistic whichstat={key} stats={value} key={counter++} />
     );
 
@@ -79,7 +79,6 @@ export default function Game({ home, away, homelogo, awaylogo, time }) {
             </Button>
 
             <Dialog open={open} handler={handleOpen} className="popup grid max-w-sm p-6 bg-white border border-gray-900 rounded-lg shadow" >
-
                 <div className="close-button">
                     <Button variant="gradient" onClick={handleOpen}>
                         <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -88,8 +87,6 @@ export default function Game({ home, away, homelogo, awaylogo, time }) {
                         <span className="sr-only">Close modal</span>
                     </Button>
                 </div>
-
-
                 <DialogBody>
                     {displayStats}
                 </DialogBody>
