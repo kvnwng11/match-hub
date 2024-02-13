@@ -98,3 +98,7 @@ code {
 .bar {
   z-index: -1;
 }
+
+.display-linebreak {
+  white-space: pre-line;
+}

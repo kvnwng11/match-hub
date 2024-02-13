@@ -2,91 +2,73 @@ import React, { useState, useEffect } from "react";
 import {
   Card,
   Typography,
-  List,
-  ListItem,
 } from "@material-tailwind/react";
+import { Sidebar } from 'flowbite-react';
 import logo from './logo.png'
 import GameDay from "./GameDay";
 import './index.css';
 import './App.css';
 
 
-// A sidebar to create a watchlist
-function Sidebar({ handleFilter }) {
+// A filter to create watchlists
+function TeamFilter({ handleFilter }) {
+  var teams = ["",
+              "AFC Bournemouth", 
+              "Arsenal", 
+              "Aston Villa", 
+              "Aston Villa", 
+              "Brentford", 
+              "Brighton & Hove Albion", 
+              "Burnley", "Chelsea", 
+              "Crystal Palace", 
+              "Everton", 
+              "Fulham",
+              "Liverpool",
+              "Luton Town",
+              "Manchester City",
+              "Manchester United",
+              "Newcastle United",
+              "Nottingham Forest",
+              "Sheffield United",
+              "Tottenham Hotspur",
+              "West Ham United",
+              "Wolverhampton Wanderers"];
+
+  // Get logos
+  function importAll(r) {
+    let images = {};
+    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+    return images;
+  }
+  const images = importAll(require.context('./teamlogos', false, /\.(png|jpe?g|svg)$/));
+
+  let filters = Object.entries(teams).map(([key, name]) =>
+    { var displayWord = name == ""? "All" : name;
+      return ( 
+        <Sidebar.Item key={key} href="#" onClick={(e) => handleFilter(e, {name})}>
+          {displayWord}
+        </Sidebar.Item>
+      );
+    }
+  );
+    
   return (
     <>
-      <img src={logo} className="logo" alt="logo" />
-      <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 ">
-        <div className="mb-2 font-bold text-xl text-gray-900">
-          <Typography variant="h2" color="blue-gray">
-            Filter by club
-          </Typography>
-        </div>
-        <List>
-          <ListItem onClick={(e) => handleFilter(e, "")}>
-            All
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "AFC Bournemouth")}>
-            AFC Bournemouth
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Arsenal")}>
-            Arsenal
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Aston Villa")}>
-            Aston Villa
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Brentford")}>
-            Brentford
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Brighton & Hove Albion")}>
-            Brighton & Hove Albion
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Burnley")}>
-            Burnley
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Chelsea")}>
-            Chelsea
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Crystal Palace")}>
-            Crystal Palace
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Everton")}>
-            Everton
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Fulham")}>
-            Fulham
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Liverpool")}>
-            Liverpool
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Luton Town")}>
-            Luton Town
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Manchester City")}>
-            Manchester City
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Manchester United")}>
-            Manchester United
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Newcastle United")}>
-            Newcastle United
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Nottingham Forest")}>
-            Nottingham Forest
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Sheffield United")}>
-            Sheffield United
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Tottenham Hotspur")}>
-            Tottenham Hotspur
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "West Ham United")}>
-            West Ham United
-          </ListItem>
-          <ListItem onClick={(e) => handleFilter(e, "Wolverhampton Wanderers")}>
-            Wolverhampton Wanderers
-          </ListItem>
-        </List>
+      <Card className="h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 ">
+        <Sidebar aria-label="Filters">
+          <Sidebar.Logo img={logo} imgAlt="Premier League logo">
+          </Sidebar.Logo>
+          <div className="mb-2 font-bold text-xl text-gray-900 display-linebreak">
+              <Typography variant="h2" color="blue-gray">
+                Filter by club
+              </Typography>
+            </div>
+          <Sidebar.Items>
+            <Sidebar.ItemGroup>
+              {filters}
+            </Sidebar.ItemGroup>
+          </Sidebar.Items>
+        </Sidebar>
       </Card>
     </>
   );
@@ -128,13 +110,11 @@ function App() {
     <GameDay date={String(date)} games={gameDay} key={counter++} />
   );
 
-  // What to do if User wants to see one team
-  // TODO: Fix
   function handleFilter(event, team) {
     event.preventDefault();
 
     // Call Rest API
-    const teamName = team.replace(/\s/g, "").toLowerCase();
+    const teamName = team['name'].replace(/\s/g, "").toLowerCase();
     const apiUrl = `/api/fixtures/${teamName}/`
     fetch(apiUrl, { credentials: "same-origin" })
       .then((response) => {
@@ -152,7 +132,7 @@ function App() {
   return (
     <div>
       <div className="sidebar">
-        <Sidebar handleFilter={handleFilter}></Sidebar>
+        <TeamFilter handleFilter={handleFilter}></TeamFilter>
       </div>
       <div className="games">
         {displayGames}
