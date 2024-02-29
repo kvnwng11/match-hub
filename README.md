@@ -26,8 +26,13 @@ Filtered by Tottenham games:
 
 Head-to-head statistics:
 
-![statistics](img/statistics.png)
+![statistics](img/tottenham-stats.png)
 
 ## TODO
 
-1. Stylize statistics popup
+1. Add important statistics
+    - win probabaility
+    - shots on goal
+    - fouls
+    - etc.
+2. Filter by more than one team

@@ -85,7 +85,7 @@ code {
 
 
 .popup {
-  top: 50%;
+  top: 10%;
   margin-right: auto;
   margin-left: auto;
   display: flex;
@@ -101,4 +101,27 @@ code {
 
 .display-linebreak {
   white-space: pre-line;
+}
+
+.statistic {
+  display: inline;
+}
+
+.statistic progress {
+  vertical-align: middle
+}
+
+.statistics-teamlogo {
+  width: 50px;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.statistics-team-home {
+  position: relative;
+}
+
+.statistics-team-away {
+  position: relative;
 }
