@@ -18,15 +18,15 @@ Application:
 
 Front page:
 
-![all](img/all_teams.png)
+![all](frontend/img/all_teams.png)
 
 Filtered by Tottenham games:
 
-![tottenham](img/just_tottenham.png)
+![tottenham](frontend/img/just_tottenham.png)
 
 Head-to-head statistics:
 
-![statistics](img/tottenham-stats.png)
+![statistics](frontend/img/tottenham-stats.png)
 
 ## TODO
 

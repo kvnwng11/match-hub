@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 import re
-import psycopg2 # For Postgres
+import psycopg2
 from collections import defaultdict
 
 from backend.statistics import get_statistics
