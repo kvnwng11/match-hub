@@ -1,21 +1,12 @@
-DROP TABLE IF EXISTS teams, games, results, users, watching;
+DROP TABLE IF EXISTS Team, Competition, CompetitionMembership, Game, GameStatistic;
 
-
-CREATE TABLE Venue (
-    id SERIAL,
-    name VARCHAR(64),
-    city VARCHAR(64),
-    country VARCHAR(64),
-    PRIMARY KEY (id)
-);
 
 CREATE TABLE Team (
     id SERIAL,
-    id_HomeVenue INTEGER,
     name VARCHAR(64),
     logoFileLocation VARCHAR(64) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id_HomeVenue) REFERENCES Venue(id) ON DELETE CASCADE,
+    UNIQUE(name)
 );
 
 CREATE TABLE Competition (
@@ -24,28 +15,29 @@ CREATE TABLE Competition (
     year_End INTEGER,
     name VARCHAR(64),
     logoFileLocation VARCHAR(64) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (year_Start, year_End, name)
 );
 
 CREATE TABLE CompetitionMembership (
     id_Competition INTEGER NOT NULL,
     id_Team INTEGER NOT NULL,
     FOREIGN KEY (id_Competition) REFERENCES Competition(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_Team) REFERENCES Team(id) ON DELETE CASCADE
+    FOREIGN KEY (id_Team) REFERENCES Team(id) ON DELETE CASCADE,
+    UNIQUE(id_Competition, id_Team)
 );
 
 CREATE TABLE Game (
     id SERIAL,
     id_HomeTeam INTEGER NOT NULL,
     id_AwayTeam INTEGER NOT NULL,
-    id_Venue INTEGER NOT NULL,
+    venue VARCHAR(64),
     id_Competition INTEGER NOT NULL,
     date DATE NOT NULL,
     time TIME NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (id_HomeTeam) REFERENCES Team(id) ON DELETE CASCADE,
     FOREIGN KEY (id_AwayTeam) REFERENCES Team(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_Venue) REFERENCES Venue(id) ON DELETE CASCADE,
     FOREIGN KEY (id_Competition) REFERENCES Competition(id) ON DELETE CASCADE
 );
 
@@ -53,16 +45,28 @@ CREATE TABLE GameStatistic (
     id_Game INTEGER NOT NULL, 
     id_Team INTEGER NOT NULL,
     goals INTEGER NOT NULL,
+    xG NUMERIC NOT NULL,
     possession INTEGER NOT NULL,
-    passingAccuracy INTEGER NOT NULL,
+    passAttempts INTEGER NOT NULL,
+    passCompletions INTEGER NOT NULL,
     shotAttempts INTEGER NOT NULL,
     shotsOnTarget INTEGER NOT NULL,
-    saves INTEGER NOT NULL,
-    fouls INTEGER NOT NULL,
-    corners INTEGER NOT NULL,
+    saveAttempts INTEGER NOT NULL,
+    saveCompletions INTEGER NOT NULL,
     yellowCards INTEGER NOT NULL,
     redCards INTEGER NOT NULL,
+    fouls INTEGER NOT NULL,
+    corners INTEGER NOT NULL,
+    touches INTEGER NOT NULL,
+    tackles INTEGER NOT NULL,
+    interceptions INTEGER NOT NULL,
+    aerialsWon INTEGER NOT NULL,
+    clearances INTEGER NOT NULL,
+    offsides INTEGER NOT NULL,
+    goalKicks INTEGER NOT NULL,
+    throwIns INTEGER NOT NULL,
+    longBalls INTEGER NOT NULL,
     FOREIGN KEY (id_Game) REFERENCES Game(id) ON DELETE CASCADE,
-    FOREIGN KEY (id_Team) REFERENCES Team(id) ON DELETE CASCADE
+    FOREIGN KEY (id_Team) REFERENCES Team(id) ON DELETE CASCADE,
     UNIQUE (id_Game, id_Team)
 );
